@@ -1,0 +1,78 @@
+body {
+    font-family: 'Roboto', sans-serif;
+  }
+  
+.containerC {
+    max-width: 700px; /* Ajusta el ancho máximo según tus necesidades */
+    margin: 0 auto;
+    padding: 1rem;
+    text-align: center;
+  }
+  
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+  
+.details-container {
+    display: grid; /* Cambia a un grid layout */
+    grid-template-columns: repeat(3, 1fr); /* Crea tres columnas de igual tamaño */
+    gap: 16px; /* Espacio entre los detalles */
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 1000px;
+    margin-bottom: 15px;
+  }
+  
+.detail-item {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 10px;
+  }
+  
+.detail-item h3 {
+    font-size: 17px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .sub-label {
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+  
+  .input {
+    height: 40px;
+    border: 1px solid #ccc;
+    padding: 8px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Estilos cuando el campo se enfoca */
+  .input:focus {
+    border-color: #ff8000;
+    box-shadow: 0 0 10px rgba(255, 128, 0, 0.5);
+  }
+  
+  .button {
+    background-color: #ff8000;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 16px;
+  }
+  
+  /* Estilos para el botón al pasar el cursor */
+  .button:hover {
+    background-color: #7d9f3a;
+  }
+  
