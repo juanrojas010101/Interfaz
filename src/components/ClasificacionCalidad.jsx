@@ -3,25 +3,25 @@ import '../App.css';
 
 const ClasificacionDescarteForm = () => {
   const initialState = {
-    Oleocelosis: { lavado: '', proceso: '' },
-    FrutaVerde: { lavado: '', proceso: '' },
-    DivisionCelular: { lavado: '', proceso: '' },
-    Despezonada: { lavado: '', proceso: '' },
-    FrutaSobreMadura: { lavado: '', proceso: '' },
-    DañosTrips: { lavado: '', proceso: '' },
-    DañosMecanicos: { lavado: '', proceso: '' },
-    EscamaPiojoBlanco: { lavado: '', proceso: '' },
-    DañosNutrientes: { lavado: '', proceso: '' },
-    DañosAcaro: { lavado: '', proceso: '' },
-    Mgrillo: { lavado: '', proceso: '' },
-    Fumagina: { lavado: '', proceso: '' },
-    Melanosis: { lavado: '', proceso: '' },
-    Antracnosis: { lavado: '', proceso: '' },
-    Elsinoe: { lavado: '', proceso: '' },
-    FrutaRajada: { lavado: '', proceso: '' },
-    Ombligona: { lavado: '', proceso: '' },
-    DañosHerbicida: { lavado: '', proceso: '' },
-    Piel: { lavado: '', proceso: '' },
+    'Oleocelosis': { lavado: '', proceso: '' },
+    'FrutaVerde': { lavado: '', proceso: '' },
+    'Division Celular': { lavado: '', proceso: '' },
+    'Despezonada': { lavado: '', proceso: '' },
+    'Fruta Sobre Madura': { lavado: '', proceso: '' },
+    'Daños Trips': { lavado: '', proceso: '' },
+    'Daños Mecanicos': { lavado: '', proceso: '' },
+    'Escama y Piojo Blanco': { lavado: '', proceso: '' },
+    'Daños Nutrientes': { lavado: '', proceso: '' },
+    'Daños Acaro': { lavado: '', proceso: '' },
+    'Mgrillo': { lavado: '', proceso: '' },
+    'Fumagina': { lavado: '', proceso: '' },
+    'Melanosis': { lavado: '', proceso: '' },
+    'Antracnosis': { lavado: '', proceso: '' },
+    'Elsinoe': { lavado: '', proceso: '' },
+    'Fruta Rajada': { lavado: '', proceso: '' },
+    'Ombligona': { lavado: '', proceso: '' },
+    'Daños Herbicida': { lavado: '', proceso: '' },
+    'Piel': { lavado: '', proceso: '' },
   };
 
   const [detalles, setDetalles] = useState(initialState);
@@ -67,7 +67,7 @@ const ClasificacionDescarteForm = () => {
     <div className="containerC">
       <div className="details-container">
         {Object.keys(detalles).reduce((columns, key, index) => {
-          if (index % 3 === 0) {
+          if (index % 5 === 0) {
             columns.push([]);
           }
           columns[columns.length - 1].push(

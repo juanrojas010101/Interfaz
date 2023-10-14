@@ -1,24 +1,25 @@
 import React, { useState } from 'react';
+import './Limon.css'
 
 const initialState = {
-  Oleocelosis: { lavado: '', proceso: '' },
-  FrutaVerde: { lavado: '', proceso: '' },
-  DañosHerbicida: { lavado: '', proceso: '' },
-  FrutaSobreMadura: { lavado: '', proceso: '' },
-  DañosMecanicos: { lavado: '', proceso: '' },
-  EscamaPiojoBlanco: { lavado: '', proceso: '' },
-  DañosAcaro: { lavado: '', proceso: '' },
-  Mgrillo: { lavado: '', proceso: '' },
-  ElsinoeRoña: { lavado: '', proceso: '' },
-  Melanosis: { lavado: '', proceso: '' },
-  WoodPocket: { lavado: '', proceso: '' },
-  Trips: { lavado: '', proceso: '' },
-  DivisionCelular: { lavado: '', proceso: '' },
-  PielNodularligona: { lavado: '', proceso: '' },
-  Fumagina: { lavado: '', proceso: '' },
-  Sombra: { lavado: '', proceso: '' },
-  ManchaFantasma: { lavado: '', proceso: '' },
-  Deshidratada: { lavado: '', proceso: '' },
+  'Oleocelosis': { lavado: '', proceso: '' },
+  'Fruta Verde': { lavado: '', proceso: '' },
+  'Daños Herbicida': { lavado: '', proceso: '' },
+  'Fruta Sobre Madura': { lavado: '', proceso: '' },
+  'Daños Mecanicos': { lavado: '', proceso: '' },
+  'Escama y Piojo Blanco': { lavado: '', proceso: '' },
+  'Daños Acaro': { lavado: '', proceso: '' },
+  'Mgrillo': { lavado: '', proceso: '' },
+  'Elsinoe-Roña': { lavado: '', proceso: '' },
+  'Melanosis': { lavado: '', proceso: '' },
+  'Wood Pocket': { lavado: '', proceso: '' },
+  'Trips': { lavado: '', proceso: '' },
+  'Division Celular': { lavado: '', proceso: '' },
+  'Piel Nodular': { lavado: '', proceso: '' },
+  'Fumagina': { lavado: '', proceso: '' },
+  'Sombra': { lavado: '', proceso: '' },
+  'Mancha Fantasma': { lavado: '', proceso: '' },
+  'Deshidratada': { lavado: '', proceso: '' },
 };
 
 const ClasificacionDescarteForm = () => {
@@ -56,7 +57,7 @@ const ClasificacionDescarteForm = () => {
     <div className="containerC">
       <div className="details-container">
         {Object.keys(detalles).reduce((columns, key, index) => {
-          if (index % 3 === 0) {
+          if (index % 5 === 0) {
             columns.push([]);
           }
           columns[columns.length - 1].push(
