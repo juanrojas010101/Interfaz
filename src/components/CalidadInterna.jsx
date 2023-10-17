@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import '../CalidadInterna.css';
 
-const CalidadInternaForm = () => {
+const CalidadInternaForm = ({ loteSeleccionado }) => {
   const initialState = {
+    lote: loteSeleccionado, // Usar el lote seleccionado desde el header
     contenidoZum: {
       pesoInicial: '',
       pesoZumo: '',
@@ -14,15 +15,17 @@ const CalidadInternaForm = () => {
       muestra3: { brix: '', acidez: '' },
     },
     promedios: {
-      brix: '0',  // Inicializar promedios en blanco
+      brix: '0',
       acidez: '0',
+      ratio: '0',
+      peso: '0',
+      zumo: '0',
     },
   };
 
   const [datos, setDatos] = useState(initialState);
   const [mensajeGuardado, setMensajeGuardado] = useState('');
 
-  // Función para calcular el porcentaje de llenado
   const calcularPorcentaje = () => {
     const pesoInicial = parseFloat(datos.contenidoZum.pesoInicial);
     const pesoZumo = parseFloat(datos.contenidoZum.pesoZumo);
@@ -33,43 +36,59 @@ const CalidadInternaForm = () => {
     return porcentaje.toFixed(2);
   };
 
-  // Función para calcular promedios de brix y acidez
   const calcularPromedios = () => {
     const { pruebasPlataforma } = datos;
+    const muestraKeys = Object.keys(pruebasPlataforma);
     let totalBrix = 0;
     let totalAcidez = 0;
+    let totalRatio = 0;
+    let totalPeso = 0;
+    let totalZumo = 0;
 
-    for (let muestraNum = 1; muestraNum <= 3; muestraNum++) {
-      totalBrix += parseFloat(pruebasPlataforma[`muestra${muestraNum}`].brix) || 0;
-      totalAcidez += parseFloat(pruebasPlataforma[`muestra${muestraNum}`].acidez) || 0;
-    }
+    muestraKeys.forEach((muestraKey) => {
+      totalBrix += parseFloat(pruebasPlataforma[muestraKey].brix) || 0;
+      totalAcidez += parseFloat(pruebasPlataforma[muestraKey].acidez) || 0;
 
-    const promedioBrix = (totalBrix / 3).toFixed(2);
-    const promedioAcidez = (totalAcidez / 3).toFixed(2);
+      const brix = parseFloat(pruebasPlataforma[muestraKey].brix) || 0;
+      const acidez = parseFloat(pruebasPlataforma[muestraKey].acidez) || 0;
+      const ratio = brix / acidez;
+      totalRatio += ratio;
 
-    console.log('Datos en calcularPromedios:', datos);
-    console.log('Total Brix:', totalBrix);
-    console.log('Total Acidez:', totalAcidez);
+      const peso = parseFloat(datos.contenidoZum.pesoInicial) || 0;
+      const zumo = parseFloat(datos.contenidoZum.pesoZumo) || 0;
+      totalPeso += peso;
+      totalZumo += zumo;
+    });
 
-    return { brix: promedioBrix, acidez: promedioAcidez };
+    const promedioBrix = (totalBrix / muestraKeys.length).toFixed(2);
+    const promedioAcidez = (totalAcidez / muestraKeys.length).toFixed(2);
+    const promedioRatio = (totalRatio / muestraKeys.length).toFixed(2);
+    const promedioPeso = (totalPeso / muestraKeys.length).toFixed(2);
+    const promedioZumo = (totalZumo / muestraKeys.length).toFixed(2);
+
+    return {
+      lote: loteSeleccionado,
+      brix: promedioBrix,
+      acidez: promedioAcidez,
+      ratio: promedioRatio,
+      peso: promedioPeso,
+      zumo: promedioZumo,
+    };
   };
 
   const handleGuardar = () => {
-    // Calcular los promedios
     const promedios = calcularPromedios();
-  
-    // Actualizar el estado de datos con los promedios
+
     setDatos((prevDatos) => ({
       ...prevDatos,
       promedios: promedios,
     }));
-  
-    // Lógica para guardar los datos en la API (reemplaza con tu lógica de envío de datos a la API)
-    console.log('Datos guardados:', datos); // Esto puede mostrar valores desactualizados debido a la asincronía
-  
+
+    console.log('Datos guardados:', datos);
+    console.log('Promedios calculados:', promedios);
+
     setMensajeGuardado('Los datos se han guardado correctamente');
-  
-    // Resetear los datos automáticamente después de 2 segundos (puedes ajustar el tiempo)
+
     setTimeout(() => {
       setDatos(initialState);
       setMensajeGuardado('');
@@ -78,7 +97,6 @@ const CalidadInternaForm = () => {
 
   return (
     <div className="container">
-      {/* Sección "Contenido Zum" */}
       <div className="section">
         <h2 className="label">Contenido Zum</h2>
         <input
@@ -122,7 +140,6 @@ const CalidadInternaForm = () => {
         <p>Porcentaje de Llenado de Contenido Zum: {calcularPorcentaje()}%</p>
       </div>
 
-      {/* Sección "Pruebas de plataforma" */}
       <div className="section">
         <h2 className="label">Pruebas de plataforma</h2>
         {[1, 2, 3].map((muestraNum) => (
@@ -168,10 +185,8 @@ const CalidadInternaForm = () => {
         ))}
       </div>
 
-      {/* Mensaje de guardado */}
       {mensajeGuardado && <p>{mensajeGuardado}</p>}
 
-      {/* Botón de guardar */}
       <button className="button" onClick={handleGuardar}>
         Guardar
       </button>
@@ -180,6 +195,8 @@ const CalidadInternaForm = () => {
 };
 
 export default CalidadInternaForm;
+
+
 
 
 

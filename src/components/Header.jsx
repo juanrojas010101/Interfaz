@@ -1,22 +1,29 @@
-// Header.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import './Header.css';
+import CalidadInternaForm from './CalidadInterna'; // Importa tu componente CalidadInternaForm
+import ClasificacionCalidadForm from './ClasificacionCalidad'; // Importa tu componente ClasificacionCalidadForm
+import ClasificacionLimonForm from './ClasificacionLimon'; // Importa tu componente ClasificacionLimónForm
 
 const Header = ({ onLoteChange, onFormularioChange }) => {
+  const [loteSeleccionado, setLoteSeleccionado] = useState(''); // Estado para el lote seleccionado
+  const [formularioSeleccionado, setFormularioSeleccionado] = useState(null); // Estado para el formulario seleccionado
+
   const handleLoteChange = (event) => {
     const selectedValue = event.target.value;
+    setLoteSeleccionado(selectedValue); // Actualiza el estado con el valor del lote seleccionado
     onLoteChange(selectedValue);
   };
 
   const handleFormularioChange = (event) => {
     const selectedValue = event.target.value;
+    setFormularioSeleccionado(selectedValue); // Actualiza el estado con el valor del formulario seleccionado
     onFormularioChange(selectedValue);
   };
 
   // Datos quemados para los lotes
   const lotesData = [
-    { id: 'LoteNaranja', nombre: 'Lote 1', tipoFruta: 'naranja' },
-    { id: 'LoteLimon', nombre: 'Lote 2', tipoFruta: 'limon' },
+    { id: 'ENF-1', nombre: 'Lote 1', tipoFruta: 'naranja' },
+    { id: 'ENF-2', nombre: 'Lote 2', tipoFruta: 'limon' },
     // Agrega más lotes quemados según tus necesidades
   ];
 
@@ -53,11 +60,24 @@ const Header = ({ onLoteChange, onFormularioChange }) => {
         <option value="0"><b>Calidad Interna</b></option>
         <option value="1"><b>Clasificación del Descarte</b></option>
       </select>
+
+      {loteSeleccionado && formularioSeleccionado === '0' && (
+        <CalidadInternaForm loteSeleccionado={loteSeleccionado} />
+      )}
+
+      {loteSeleccionado && formularioSeleccionado === '1' && (
+        (loteSeleccionado === 'ENF-1' ? (
+          <ClasificacionCalidadForm />
+        ) : (
+          <ClasificacionLimonForm />
+        ))
+      )}
     </header>
   );
 };
 
 export default Header;
+
 
 
 
