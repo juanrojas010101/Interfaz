@@ -67,9 +67,9 @@ const Header = ({ onLoteChange, onFormularioChange }) => {
 
       {loteSeleccionado && formularioSeleccionado === '1' && (
         (loteSeleccionado === 'ENF-1' ? (
-          <ClasificacionCalidadForm />
+          <ClasificacionCalidadForm loteSeleccionado={loteSeleccionado} />
         ) : (
-          <ClasificacionLimonForm />
+          <ClasificacionLimonForm loteSeleccionado={loteSeleccionado}/>
         ))
       )}
     </header>
@@ -77,6 +77,7 @@ const Header = ({ onLoteChange, onFormularioChange }) => {
 };
 
 export default Header;
+
 
 
 
