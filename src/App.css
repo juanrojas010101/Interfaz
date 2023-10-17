@@ -17,7 +17,7 @@ h2 {
 
 .details-container {
   display: grid; /* Cambia a un grid layout */
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr); 
   gap: 20px; /* Espacio entre los detalles */
   background-color: #f0f0f0;
   border-radius: 8px;
@@ -77,10 +77,25 @@ h2 {
 .button:hover {
   background-color: #7d9f3a;
 }
+.floating-percentage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #7d9f3a; /* Color de fondo */
+  color: #fff; /* Color del texto */
+  padding: 10px;
+  text-align: center;
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}
 
+/* Estilo para el progreso */
+progress {
+  width: 100%;
+}
 @media screen and (min-width: 768px) {
   .details-container {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 @media screen and (max-width: 700px) {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../App.css';
 
 const ClasificacionDescarteForm = () => {
@@ -24,47 +24,61 @@ const ClasificacionDescarteForm = () => {
     'Piel': { lavado: '', proceso: '' },
   };
 
+
   const [detalles, setDetalles] = useState(initialState);
   const [totalPorcentaje, setTotalPorcentaje] = useState(0);
   const [errorPorcentaje, setErrorPorcentaje] = useState('');
   const [guardadoExitoso, setGuardadoExitoso] = useState(false);
+  const [actualizacionExitosa, setActualizacionExitosa] = useState(false);
+
+  useEffect(() => {
+    calcularTotalPorcentaje();
+  }, [detalles]);
 
   const calcularTotalPorcentaje = () => {
-    const total = Object.values(detalles).reduce((acu, current) => {
-      const lavado = parseFloat(current.lavado) || 0;
-      const proceso = parseFloat(current.proceso) || 0;
-      return acu + lavado + proceso;
-    }, 0);
+    const promedios = Object.keys(detalles).map((key) => {
+      const lavado = parseFloat(detalles[key].lavado) || 0;
+      const proceso = parseFloat(detalles[key].proceso) || 0;
+      return (lavado + proceso) / 2;
+    });
 
+    const total = promedios.reduce((acu, promedio) => acu + promedio, 0);
     setTotalPorcentaje(total);
   };
 
   const handleGuardar = () => {
     if (totalPorcentaje !== 100) {
       setErrorPorcentaje('El porcentaje debe ser igual a 100%');
+      setActualizacionExitosa(false);
       return;
     }
 
     setErrorPorcentaje('');
     setGuardadoExitoso(true);
+    setActualizacionExitosa(false);
 
-    // Simplemente imprime los datos en la consola
     console.log('Datos guardados:', detalles);
 
-    // Reinicia el formulario a su estado inicial
     setDetalles(initialState);
     setTotalPorcentaje(0);
+
+    setActualizacionExitosa(true);
   };
 
   const handleReset = () => {
     setDetalles(initialState);
     setTotalPorcentaje(0);
     setGuardadoExitoso(false);
+    setActualizacionExitosa(false);
   };
-
 
   return (
     <div className="containerC">
+      <div>
+        <div className="floating-percentage">
+          Total Porcentaje: {totalPorcentaje.toFixed(2)}%
+        </div>
+      </div>
       <div className="details-container">
         {Object.keys(detalles).reduce((columns, key, index) => {
           if (index % 5 === 0) {
@@ -80,10 +94,11 @@ const ClasificacionDescarteForm = () => {
                     className="input"
                     type="number"
                     onChange={(e) => {
-                      setDetalles({
+                      const newDetalles = {
                         ...detalles,
                         [key]: { ...detalles[key], lavado: e.target.value },
-                      });
+                      };
+                      setDetalles(newDetalles);
                       calcularTotalPorcentaje();
                     }}
                     value={detalles[key].lavado}
@@ -96,10 +111,11 @@ const ClasificacionDescarteForm = () => {
                     className="input"
                     type="number"
                     onChange={(e) => {
-                      setDetalles({
+                      const newDetalles = {
                         ...detalles,
                         [key]: { ...detalles[key], proceso: e.target.value },
-                      });
+                      };
+                      setDetalles(newDetalles);
                       calcularTotalPorcentaje();
                     }}
                     value={detalles[key].proceso}
@@ -116,17 +132,19 @@ const ClasificacionDescarteForm = () => {
           </div>
         ))}
       </div>
-      <div>Total Porcentaje: {totalPorcentaje.toFixed(2)}%</div>
       <div>{errorPorcentaje}</div>
       {guardadoExitoso ? (
         <div>
-          Los datos se han guardado correctamente.{' '}
+          Datos guardados correctamente.{' '}
           <button onClick={handleReset}>Aceptar</button>
         </div>
       ) : (
         <button className="button" onClick={handleGuardar}>
           Guardar
         </button>
+      )}
+      {actualizacionExitosa && (
+        <div>Actualización exitosa. Los valores se han actualizado correctamente.</div>
       )}
     </div>
   );
